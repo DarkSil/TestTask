@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Test Task</string>
+    <string name="noBoots">No boots detected</string>
+    <string name="oneBoot">The boot was detected with the timestamp = {placeholder}</string>
+    <string name="fewBoots">Last boots time delta = {placeholder}</string>
+    <string name="uiPlaceholder">{position} - {timestamp}</string>
 </resources>
