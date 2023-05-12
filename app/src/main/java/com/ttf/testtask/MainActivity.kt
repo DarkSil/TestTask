@@ -1,7 +1,12 @@
 package com.ttf.testtask
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.ttf.testtask.databinding.ActivityMainBinding
 import com.ttf.testtask.util.DBHelper
@@ -15,6 +20,15 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private val dbHelper by lazy { DBHelper(this) }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (!isGranted) {
+                Toast.makeText(this, "Not granted", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +67,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.textTime.text = stringBuilder.toString()
             }
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
 
         Util.scheduleNotifications(this)
