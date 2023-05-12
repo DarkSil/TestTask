@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.ttf.testtask.databinding.ActivityMainBinding
 import com.ttf.testtask.util.DBHelper
+import com.ttf.testtask.util.Util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -53,6 +54,8 @@ class MainActivity : AppCompatActivity() {
                 binding.textTime.text = stringBuilder.toString()
             }
         }
+
+        Util.scheduleNotifications(this)
 
     }
 }
